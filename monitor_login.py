@@ -1,6 +1,6 @@
 docfile_log = open("/var/log/auth.log").readlines()
-ghidulieu = open("/root/login_monitor.txt", 'a')
-docfile_dl_f_ssh = open("/root/login_monitor.txt").readlines()
+ghidulieu = open("/var/tools/zabbix/monitor/login_monitor.txt", 'a')
+docfile_dl_f_ssh = open("/var/tools/zabbix/monitor/login_monitor.txt").readlines()
 
 f_ssh_line = []
 list_so_sanh = []
@@ -55,7 +55,7 @@ ghidulieu.close()
 
 
 
-txt = open("/root/login_monitor.txt")
+txt = open("/var/tools/zabbix/monitor/login_monitor.txt")
 
 fail_ssh_last = []
 cut_fail_ssh_last = []
@@ -84,13 +84,13 @@ if fail_ssh_last:
     cut_fail_ssh_last=fail_ssh_last[len(fail_ssh_last)-1].split(" ")
     if tukhoa11 in cut_fail_ssh_last:
         print "\t{\n"
-        print '\t\t"{#LOGIN1}":"FAIL SSH",' +   '\t\t"{#USER}":\"Khong ton tai user '+str(cut_fail_ssh_last[11])+"\","+'\t\t"{#IP}":\"from '+str(cut_fail_ssh_last[13])+" port "+str(cut_fail_ssh_last[15])+"\""
+        print '\t\t"{#LOGIN1}":"FAIL SSH",' +   '\t\t"{#USER}":\"Khong ton tai user '+str(cut_fail_ssh_last[11])+"\","+'\t\t"{#IP}":\"from '+str(cut_fail_ssh_last[11])+" port "+str(cut_fail_ssh_last[13])+"\""
         print "\t},\n"
 
     else:
 
         print "\t{\n"
-        print '\t\t"{#LOGIN1}":"FAIL SSH",' +  '\t\t"{#USER}":\"'+"User "+str(cut_fail_ssh_last[9])+"\","+ '\t\t"{#IP}":\" from'+str(cut_fail_ssh_last[11])+" port "+str(cut_fail_ssh_last[13])+"\""
+        print '\t\t"{#LOGIN1}":"FAIL SSH",' +  '\t\t"{#USER}":\"'+"User "+str(cut_fail_ssh_last[8])+"\","+ '\t\t"{#IP}":\" from '+str(cut_fail_ssh_last[10])+" port "+str(cut_fail_ssh_last[12])+"\""
         print "\t},\n"
 
 
