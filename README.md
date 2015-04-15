@@ -34,12 +34,12 @@ Tuy nhiên hệ thống sẽ xóa file log định kỳ nên để số lâ
 Tải script và tạo thư mục chứa file script:
 
 ```sh
-wget 
+wget https://raw.githubusercontent.com/thanhha123/zabbix_monitor_login/master/monitor_login.py
 
-mkdir -p /var/zabbix/monitor
+mkdir -p /var/tools/zabbix/monitor/
 
-cp login_monitor.py /var/zabbix/monitor/login_monitor.py
-chmod +x /var/zabbix/monitor/login_monitor.py
+cp login_monitor.py /var/tools/zabbix/monitor/login_monitor.py
+chmod +x /var/tools/zabbix/monitor/login_monitor.py
 ```
 
 Chạy script dữ liệu sẽ dưới dạng file JSON
@@ -52,16 +52,16 @@ Sau khi chạy script xong tại thư mục /var/zabbix/monitor/ sẽ sinh ra fi
 Thêm các UserParameter vào file cấu hình /etc/zabbix/zabbix_agentd.conf
 
 ```sh 
-echo " UserParameter=direct.log.fail[*],cat /var/zabbix/monitor/login_monitor.txt |grep \": FAILED LOGIN\"|wc -l" >> /etc/zabbix/zabbix_agentd.conf
+echo " UserParameter=direct.log.fail[*],cat /var/tools/zabbix/monitor/login_monitor.txt |grep \": FAILED LOGIN\"|wc -l" >> /etc/zabbix/zabbix_agentd.conf
 
-echo "UserParameter=ssh.log.success[*],cat /var/zabbix/monitor/login_monitor.txt |grep \": Accepted password\"|wc -l">>/etc/zabbix/zabbix_agentd.conf
+echo "UserParameter=ssh.log.success[*],cat /var/tools/zabbix/monitor/login_monitor.txt |grep \": Accepted password\"|wc -l">>/etc/zabbix/zabbix_agentd.conf
 
-echo "UserParameter=direct.log.success[*],cat /var/zabbix/monitor/login_monitor.txt |grep \"pam_unix(login:session): session opened\"|wc -l" >> /etc/zabbix/zabbix_agentd.conf
+echo "UserParameter=direct.log.success[*],cat /var/tools/zabbix/monitor/login_monitor.txt |grep \"pam_unix(login:session): session opened\"|wc -l" >> /etc/zabbix/zabbix_agentd.conf
 
 
-echo "UserParameter=direct.log.fail[*],cat /var/zabbix/monitor/login_monitor.txt |grep \": Failed password\"|wc -l" >> /etc/zabbix/zabbix_agentd.conf
+echo "UserParameter=direct.log.fail[*],cat /var/tools/zabbix/monitor/login_monitor.txt |grep \": Failed password\"|wc -l" >> /etc/zabbix/zabbix_agentd.conf
 
-echo "UserParameter=login.monitor,/usr/bin/python /var/zabbix/monitor/login_monitor.py" >> /etc/zabbix/zabbix_agentd.conf
+echo "UserParameter=login.monitor,/usr/bin/python /var/tools/zabbix/monitor/login_monitor.py" >> /etc/zabbix/zabbix_agentd.conf
 
 ```
 
